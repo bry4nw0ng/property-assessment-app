@@ -7,11 +7,13 @@ export const readExcel = (file) => {
       const data = new Uint8Array(event.target.result);
       const workbook = XLSX.read(data, { type: 'array' });
       const sheetName = workbook.SheetNames[0];
-      const sheet = workbook.Sheets[sheetName];
-      const jsonData = XLSX.utils.sheet_to_json(sheet);
-      resolve(jsonData);
+      const worksheet = workbook.Sheets[sheetName];
+      const json = XLSX.utils.sheet_to_json(worksheet);
+      resolve(json);
     };
-    reader.onerror = (error) => reject(error);
+    reader.onerror = (error) => {
+      reject(error);
+    };
     reader.readAsArrayBuffer(file);
   });
 };
