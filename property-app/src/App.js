@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { readExcel } from './readExcel';
+import { useState } from 'react';
+import { Slider } from 'react-bootstrap';
 
 function App() {
   const [data, setData] = useState([]);
+  const [score, setScore] = useState(50); // Initial slider value
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -14,6 +15,12 @@ function App() {
   return (
     <div>
       <input type="file" onChange={handleFileUpload} />
+      <Slider
+        value={score}
+        onChange={(e) => setScore(e.target.value)}
+        min={0}
+        max={100}
+      />
       <table>
         <thead>
           <tr>
